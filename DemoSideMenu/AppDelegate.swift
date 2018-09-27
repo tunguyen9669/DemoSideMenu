@@ -12,11 +12,42 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var sideMenu: SideMenuController?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        setuprootView()
+        setupStyleNavBar()
+        window?.makeKeyAndVisible()
         return true
+    }
+    func setupStyleNavBar() {
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().barTintColor = UIColor.frenchBlue
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+    }
+    func setuprootView() {
+        let rootView  = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
+        let rootNav = UINavigationController(rootViewController: rootView)
+        window?.rootViewController = rootNav
+    }
+    func createSideMenu() {
+        let rootView  = SideMenuViewController(nibName: "SideMenuViewController", bundle: nil)
+        let rootNav = UINavigationController(rootViewController: rootView)
+        sideMenu = SideMenuController(rootViewController: rootNav)
+        window?.rootViewController = sideMenu
+    }
+    func showLeftMenu() {
+        guard let sideMenu = sideMenu else {
+            return
+        }
+        sideMenu.showLeftView(animated: true, completionHandler: nil)
+    }
+    
+    func getSideMenu() -> SideMenuController? {
+        return sideMenu
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

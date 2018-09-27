@@ -9,6 +9,22 @@
 import UIKit
 
 class LeftMenuViewController: UIViewController {
+    
+    @IBAction func goToOne(_ sender: Any) {
+        guard let sideMenu = (UIApplication.shared.delegate as? AppDelegate)?.getSideMenu() else {
+            return
+        }
+        let firstView = FirstViewController()
+        sideMenu.printIdenfier()
+        sideMenu.openFirstViewController()
+        
+    }
+    
+    @IBAction func gotoSecond(_ sender: Any) {
+    }
+    @IBAction func gotoThird(_ sender: Any) {
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
